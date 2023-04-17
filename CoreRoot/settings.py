@@ -25,6 +25,7 @@ INSTALLED_APPS = ['django.contrib.admin',
                   'django.contrib.staticfiles',
                   "core",
                   "core.user",
+                  "core.auth",
                   "rest_framework",
                   'drf_yasg']
 
