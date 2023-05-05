@@ -26,6 +26,7 @@ INSTALLED_APPS = ['django.contrib.admin',
                   "core",
                   "core.user",
                   "core.auth",
+                  "core.post",
                   "rest_framework",
                   'drf_yasg']
 
@@ -83,8 +84,12 @@ AUTH_USER_MODEL = "core_user.User"
 
 # REST FRAMEWORK
 REST_FRAMEWORK = {
-                  'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
-                  'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'], }
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 15,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
 
 # CORS settings
 
