@@ -1,5 +1,3 @@
-import uuid
-
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -81,3 +79,15 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     @property
     def name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def like(self, post):
+        """Like a post."""
+        self.posts_liked.add(post)
+
+    def remove_like(self, post):
+        """Remove a like from a post."""
+        self.posts_liked.remove(post)
+
+    def has_liked(self, post):
+        """Return `True` if this user has liked the given post."""
+        return self.posts_liked.filter(pk=post.pk).exists()
