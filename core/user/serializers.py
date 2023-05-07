@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.auth.abstract.serializers import AbstractSerializer
+from core.abstract.serializers import AbstractSerializer
 from core.user.models import User
 
 

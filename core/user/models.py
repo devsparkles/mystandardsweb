@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.http import Http404
 
-from core.auth.abstract.models import AbstractModel, AbstractManager
+from core.abstract.models import AbstractModel, AbstractManager
 
 
 def user_directory_path(instance, filename):

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from core.auth.abstract.serializers import AbstractSerializer
+from core.abstract.serializers import AbstractSerializer
 from core.post.models import Post
 from core.user.models import User
 

@@ -27,6 +27,7 @@ INSTALLED_APPS = ['django.contrib.admin',
                   "core.user",
                   "core.auth",
                   "core.post",
+                  "core.comment",
                   "rest_framework",
                   'drf_yasg']
 
