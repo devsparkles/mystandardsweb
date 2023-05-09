@@ -77,6 +77,17 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         return f"{self.email}"
 
     @property
+    def is_staff(self):
+        return self.is_superuser
+
+    @is_staff.setter
+    def is_staff(self, value):
+        if value:
+            self.is_superuser = value
+        else:
+            raise ValueError("Only superusers can have staff status.")
+
+    @property
     def name(self):
         return f"{self.first_name} {self.last_name}"
 

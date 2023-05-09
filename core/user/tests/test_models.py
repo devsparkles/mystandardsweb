@@ -24,7 +24,7 @@ data_superuser = {
     "email": "testsuperuser@gmail.com",
     "first_name": "Test",
     "last_name": "Superuser",
-    "password": "test_password",
+    "password": "test_password"
 }
 
 

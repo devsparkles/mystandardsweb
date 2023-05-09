@@ -16,8 +16,11 @@ class Comment(AbstractModel):
     objects = CommentManager()
 
     def __str__(self):
-        return f"{self.author.name}"
+        try:
+            value = self.body[:60]
+        except IndexError:
+            value = ""  # or an alternative string like "Not enough characters"
+        return value
 
     class Meta:
         db_table = "'core.comment'"
-
