@@ -17,23 +17,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = ['django.contrib.admin',
-                  'django.contrib.auth',
-                  'django.contrib.contenttypes',
-                  'django.contrib.sessions',
-                  'django.contrib.messages',
-                  'django.contrib.staticfiles',
-                  "core",
-                  "core.user",
-                  "core.auth",
-                  "core.post",
-                  "core.comment",
-                  "rest_framework",
-                  'drf_yasg']
+INSTALLED_APPS = ['django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes',
+                  'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles', "corsheaders",
+                  "core", "core.user", "core.auth", "core.post", "core.comment", "rest_framework", 'drf_yasg']
 
 MIDDLEWARE = ['django.middleware.security.SecurityMiddleware', 'django.contrib.sessions.middleware.SessionMiddleware',
-              'django.middleware.common.CommonMiddleware', 'django.middleware.csrf.CsrfViewMiddleware',
-              'django.contrib.auth.middleware.AuthenticationMiddleware',
+              'corsheaders.middleware.CorsMiddleware', 'django.middleware.common.CommonMiddleware',
+              'django.middleware.csrf.CsrfViewMiddleware', 'django.contrib.auth.middleware.AuthenticationMiddleware',
               'django.contrib.messages.middleware.MessageMiddleware',
               'django.middleware.clickjacking.XFrameOptionsMiddleware', ]
 
@@ -84,16 +74,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "core_user.User"
 
 # REST FRAMEWORK
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
-    'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 15,
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-}
+REST_FRAMEWORK = {'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
+                  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', 'PAGE_SIZE': 15,
+                  'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'], }
 
 # CORS settings
 
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
 
 SWAGGER_SETTINGS = {'SECURITY_DEFINITIONS': {'basic': {'type': 'basic'}}, }
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
