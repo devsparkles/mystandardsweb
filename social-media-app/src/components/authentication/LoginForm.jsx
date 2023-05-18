@@ -23,7 +23,7 @@ function LoginForm() {
     setValidated(true);
 
     const data = {
-      username: form.username,
+      email: form.username,
       password: form.password,
     };
 
