@@ -2,10 +2,41 @@ import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
+import Toaster from "../Toaster";
+
 function CreatePost(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [validated, setValidated] = useState(false);
+    const [form, setForm] = useState({});
+    const user = getUser();
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("");
+
+const handleSubmit = (event) => {
+    event.preventDefault();
+    const createPostForm = event.currentTarget;
+    if (createPostForm.checkValidity() === false) {
+        event.stopPropagation();
+    }
+    setValidated(true);
+    const data = {
+        author: user.id,
+        body: form.body,
+    };
+    axiosService
+        .post("/post/", data)
+        .then(() => {
+            handleClose();
+            setForm({});
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
     return (
     <>
         <Form.Group className="my-3 w-75">
@@ -17,7 +48,40 @@ function CreatePost(){
             onClick={handleShow}
         />
         </Form.Group>
-        {/*Add modal code here*/}
+            <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton className="border-0">
+            <Modal.Title>Create Post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="border-0">
+            <Form noValidate validated={validated}
+            onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+                <Form.Control
+                name="body"
+                value={form.body}
+                onChange={(e) => setForm({ ...form,
+                    body: e.target.value })}
+                as="textarea"
+                rows={3}
+                />
+            </Form.Group>
+            </Form>
+        </Modal.Body>
+        <Modal.Footer>w
+            <Button variant="primary"
+            onClick={handleSubmit}
+            disabled={form.body === undefined}>
+            Post
+            </Button>
+        </Modal.Footer>
+        </Modal>
+        <Toaster
+            title="Post!"
+            message={toastMessage}
+            showToast={showToast}
+            type={toastType}
+            onClose={() => setShowToast(false)}
+            />
     </>
     );
 }
