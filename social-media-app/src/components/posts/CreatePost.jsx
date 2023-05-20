@@ -4,6 +4,7 @@ import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
 import Toaster from "../Toaster";
 
+
 function CreatePost() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -26,11 +27,14 @@ function CreatePost() {
       author: user.id,
       body: form.body,
     };
+    
     axiosService
-      .post("/post/", data)
+      .post(`/post/`, data)
       .then(() => {
         handleClose();
         setForm({});
+        setToastMessage("Post created successfully!");
+        setShowToast(true);
       })
       .catch((error) => {
         console.log(error);
