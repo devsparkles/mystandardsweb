@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { format } from "timeago.js";
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 import {
 LikeFilled,
 CommentOutlined,
@@ -19,6 +20,8 @@ const handleLikeClick = (action) => {
     })
     .catch((err) => console.error(err));
 };
+TimeAgo.addDefaultLocale(en);
+const timeAgo = new TimeAgo('en-US')
 return (
     <>
     <Card className="rounded-3 my-4">
@@ -40,7 +43,7 @@ return (
                 <p className="fs-6 m-0">
                 {post.author.name}</p>
                 <p className="fs-6 fw-lighter">
-                <small>{format(post.created)}</small>
+                <small>{timeAgo.format(new Date(post.created))}</small>
                 </p>
             </div>
             </div>
